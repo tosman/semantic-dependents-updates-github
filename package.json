@@ -2,7 +2,14 @@
   "name": "semantic-dependents-updates-github",
   "version": "0.0.1",
   "description": "Creates Github Pull Requests to update current package version in dependent projects.",
-  "main": "dist/semantic-dependents-updates-github.js",
+  "main": "dist/main.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "bin": {
+    "semantic-dependents-updates-github": "dist/main.js"
+  },
   "scripts": {
     "test": "gulp",
     "lint": "gulp lint",
@@ -22,7 +29,7 @@
   },
   "homepage": "https://github.com/artemv/semantic-dependents-updates-github",
   "devDependencies": {
-    "babel-core": "^6.3.26",
+    "babel-core": "^6.7.4",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.0",
     "babel-polyfill": "^6.3.14",
@@ -55,7 +62,6 @@
     "webpack-stream": "^3.1.0"
   },
   "babelBoilerplateOptions": {
-    "entryFileName": "semantic-dependents-updates-github",
     "mainVarName": "DependentsUpdater"
   }
 }
