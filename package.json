@@ -1,5 +1,5 @@
 {
-  "name": "semantic-dependents-updates-github",
+  "name": "@egis/semantic-dependents-updates-github",
   "version": "0.0.1",
   "description": "Creates Github Pull Requests to update current package version in dependent projects.",
   "main": "dist/main.js",
