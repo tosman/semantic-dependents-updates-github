@@ -10,6 +10,7 @@ import source  from 'vinyl-source-stream';
 
 import mochaGlobals from './test/setup/.globals';
 import manifest  from './package.json';
+import insert from 'gulp-insert';
 
 // Load all of our Gulp plugins
 const $ = loadPlugins();
@@ -73,11 +74,7 @@ function build() {
       },
       devtool: 'source-map'
     }))
-    .pipe(gulp.dest(destinationFolder))
-    .pipe($.filter(['*', '!**/*.js.map']))
-    .pipe($.rename(exportFileName + '.min.js'))
-    .pipe($.sourcemaps.init({ loadMaps: true }))
-    .pipe($.uglify())
+    .pipe(insert.prepend('#!/usr/bin/env node\n'))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(destinationFolder));
 }
