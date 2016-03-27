@@ -1,6 +1,6 @@
 {
   "name": "@egis/semantic-dependents-updates-github",
-  "version": "0.0.1",
+  "version": "0.0.0-semantic-release",
   "description": "Creates Github Pull Requests to update current package version in dependent projects.",
   "main": "dist/main.js",
   "files": [
@@ -15,7 +15,8 @@
     "lint": "gulp lint",
     "watch": "gulp watch",
     "build": "gulp build",
-    "coverage": "gulp coverage"
+    "coverage": "gulp coverage",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -59,7 +60,8 @@
     "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^1.12.9",
-    "webpack-stream": "^3.1.0"
+    "webpack-stream": "^3.1.0",
+    "semantic-release": "^4.3.5"
   },
   "babelBoilerplateOptions": {
     "mainVarName": "DependentsUpdater"
