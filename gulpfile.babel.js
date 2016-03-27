@@ -4,11 +4,9 @@ import del  from 'del';
 import glob  from 'glob';
 import path  from 'path';
 import {Instrumenter} from 'isparta';
-import webpack from 'webpack';
-import webpackStream from 'webpack-stream';
 import source  from 'vinyl-source-stream';
 
-import mochaGlobals from './test/setup/.globals';
+import mochaGlobals from './test/setup/.globals.json';
 import manifest  from './package.json';
 import insert from 'gulp-insert';
 
@@ -59,22 +57,9 @@ function lintGulpfile() {
 }
 
 function build() {
-  return gulp.src([path.join('src', 'bin', 'main.js')])
+  return gulp.src('src/**/*.js')
     .pipe($.plumber())
-    .pipe(webpackStream({
-      output: {
-        filename: exportFileName + '.js',
-        libraryTarget: 'umd',
-        library: config.mainVarName
-      },
-      module: {
-        loaders: [
-          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
-        ]
-      },
-      devtool: 'source-map'
-    }))
-    .pipe(insert.prepend('#!/usr/bin/env node\n'))
+    .pipe($.babel())
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(destinationFolder));
 }

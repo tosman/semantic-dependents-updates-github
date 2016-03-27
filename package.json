@@ -2,13 +2,13 @@
   "name": "@egis/semantic-dependents-updates-github",
   "version": "0.0.0-semantic-release",
   "description": "Creates Github Pull Requests to update current package version in dependent projects.",
-  "main": "dist/main.js",
+  "main": "dist/bin/main.js",
   "files": [
     "dist",
     "src"
   ],
   "bin": {
-    "semantic-dependents-updates-github": "dist/main.js"
+    "semantic-dependents-updates-github": "dist/bin/main.js"
   },
   "scripts": {
     "test": "gulp",
@@ -16,13 +16,14 @@
     "watch": "gulp watch",
     "build": "gulp build",
     "coverage": "gulp coverage",
-    "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
+    "update-dependents": "dist/bin/main.js",
+    "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/artemv/semantic-dependents-updates-github.git"
   },
-  "keywords": [],
+  "keywords": ["npm", "github", "dependencies", "versions", "pull-requests"],
   "author": "Artem Vasiliev <artem.job@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -60,11 +61,16 @@
     "semantic-release": "^4.3.5",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
-    "vinyl-source-stream": "^1.1.0",
-    "webpack": "^1.12.9",
-    "webpack-stream": "^3.1.0"
+    "vinyl-source-stream": "^1.1.0"
   },
   "babelBoilerplateOptions": {
     "mainVarName": "DependentsUpdater"
+  },
+  "engines": {
+    "node": ">=0.10",
+    "npm": ">=2"
+  },
+  "semantic-dependents": {
+    "@egis/egis-ui": "git@github.com:artemv/egis-build-tools.git"
   }
 }

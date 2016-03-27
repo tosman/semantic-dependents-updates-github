@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import DependentsUpdater from '../DependentsUpdater';
 
-console.log(new DependentsUpdater().greet());
+new DependentsUpdater().run();
