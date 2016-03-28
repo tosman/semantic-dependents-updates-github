@@ -14,10 +14,7 @@ import insert from 'gulp-insert';
 const $ = loadPlugins();
 
 // Gather the library data from `package.json`
-const config = manifest.babelBoilerplateOptions;
-const mainFile = manifest.main;
-const destinationFolder = path.dirname(mainFile);
-const exportFileName = path.basename(mainFile, path.extname(mainFile));
+const destinationFolder = 'dist';
 
 function cleanDist(done) {
   del([destinationFolder]).then(() => done());
@@ -58,6 +55,7 @@ function lintGulpfile() {
 
 function build() {
   return gulp.src('src/**/*.js')
+    .pipe($.sourcemaps.init())
     .pipe($.plumber())
     .pipe($.babel())
     .pipe($.sourcemaps.write('./'))
@@ -98,7 +96,7 @@ const watchFiles = ['src/**/*', 'test/**/*', 'package.json', '**/.eslintrc', '.j
 
 // Run the headless unit tests as you make changes.
 function watch() {
-  gulp.watch(watchFiles, ['test', 'build']);
+  gulp.watch(watchFiles, ['test', 'build-watch']);
 }
 
 // Remove the built files
@@ -119,7 +117,7 @@ gulp.task('lint-gulpfile', lintGulpfile);
 // Lint everything
 gulp.task('lint', ['lint-src', 'lint-test', 'lint-gulpfile']);
 
-// Build two versions of the library
+gulp.task('build-watch', ['lint'], build);
 gulp.task('build', ['lint', 'clean'], build);
 
 // Lint and run our tests

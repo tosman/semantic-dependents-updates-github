@@ -23,7 +23,13 @@
     "type": "git",
     "url": "https://github.com/artemv/semantic-dependents-updates-github.git"
   },
-  "keywords": ["npm", "github", "dependencies", "versions", "pull-requests"],
+  "keywords": [
+    "npm",
+    "github",
+    "dependencies",
+    "versions",
+    "pull-requests"
+  ],
   "author": "Artem Vasiliev <artem.job@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -31,6 +37,7 @@
   },
   "homepage": "https://github.com/artemv/semantic-dependents-updates-github",
   "devDependencies": {
+    "@bahmutov/parse-github-repo-url": "^0.1.1",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.0",
@@ -39,6 +46,7 @@
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
     "del": "^2.2.0",
+    "github-api": "^0.11.2",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
@@ -63,14 +71,11 @@
     "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "babelBoilerplateOptions": {
-    "mainVarName": "DependentsUpdater"
-  },
   "engines": {
     "node": ">=0.10",
     "npm": ">=2"
   },
   "semantic-dependents": {
-    "@egis/egis-ui": "git@github.com:artemv/egis-build-tools.git"
+    "@egis/build-tools": "git@github.com:artemv/egis-build-tools.git"
   }
 }

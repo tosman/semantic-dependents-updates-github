@@ -1,10 +1,9 @@
 import DependentsUpdater from '../../src/DependentsUpdater';
 
 describe('DependentsUpdater', () => {
-  describe('Run function', () => {
+  describe('Instantiation', () => {
     it('shouldn\'t explode', () => {
-      let x = new DependentsUpdater();
-      x.run();
+      new DependentsUpdater();
       expect(true);
     });
 
