@@ -40,7 +40,7 @@ PRs. Example for integration with semantic-release:
   ...
   "scripts": {
     "update-dependents": "semantic-dependents-updates-github",
-    "semantic-release": "semantic-release pre && npm publish && npm run update-dependents",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post && npm run update-dependents",
   },
   ...
 
