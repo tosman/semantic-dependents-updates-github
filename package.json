@@ -46,7 +46,7 @@
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
     "del": "^2.2.0",
-    "github-api": "^0.11.2",
+    "github": "^0.2.4",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
@@ -76,6 +76,9 @@
     "npm": ">=2"
   },
   "semantic-dependents": {
-    "@egis/build-tools": "git@github.com:artemv/egis-build-tools.git"
+    "@egis/build-tools": {
+      "repo": "git@github.com:artemv/egis-build-tools.git",
+      "branchNameBase": "semadep-updater"
+    }
   }
 }
