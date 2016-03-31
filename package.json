@@ -74,14 +74,5 @@
   "engines": {
     "node": ">=0.10",
     "npm": ">=2"
-  },
-  "semantic-dependents-updates": {
-    "branch": "semantic-dependents-updates-github",
-    "author": {
-      "email": "semadep@egis-software.com"
-    },
-    "dependents": {
-      "@egis/build-tools": "git@github.com:artemv/egis-build-tools.git"
-    }
   }
 }

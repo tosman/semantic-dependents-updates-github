@@ -25,10 +25,12 @@ print it if you choose 'Other' CI instead of Travis.
 * Define the dependent projects to be updated in package.json, e.g.:
 ```
   ...
-  "semantic-dependents": {
-    "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
-    "@egis/esign": "git@github.com:artemv/eSign.git",
-    "@egis/portal-app": "git@github.com:artemv/Portal.git"
+  "semantic-dependents-updates": {
+    "dependents": {
+      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
+      "@egis/esign": "git@github.com:artemv/eSign.git",
+      "@egis/portal-app": "git@github.com:artemv/Portal.git"
+    }
   },
   ...
 ```
