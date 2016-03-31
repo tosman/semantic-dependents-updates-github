@@ -76,7 +76,7 @@
     "npm": ">=2"
   },
   "semantic-dependents-updates": {
-    "targetBranch": "semantic-dependents-updates-github",
+    "branch": "semantic-dependents-updates-github",
     "author": {
       "email": "semadep@egis-software.com"
     },

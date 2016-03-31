@@ -62,7 +62,7 @@ export default class DependentsUpdater {
   createPullRequest(config) {
     let msg = Object.assign(this.gitRepoOptions(config), {
       title: `Update ${this.packageName} to version ${this.packageVersion}`,
-      base: config.targetBranch,
+      base: config.branch,
       head: config.newBranch
     });
     return new Promise((resolve) => {
@@ -76,7 +76,7 @@ export default class DependentsUpdater {
   }
 
   getCurrentHead(config) {
-    let msg = Object.assign(this.gitRepoOptions(config), {branch: config.targetBranch});
+    let msg = Object.assign(this.gitRepoOptions(config), {branch: config.branch});
     return new Promise((resolve) => {
       this.githubApi.repos.getBranch(msg, (err, data) => {
         if (err) {
@@ -144,7 +144,7 @@ export default class DependentsUpdater {
   getTargetPackageJson(options, config) {
     return new Promise((resolve) => {
       this.githubApi.repos.getContent(Object.assign(this.gitRepoOptions(config), {
-            ref: config.targetBranch,
+            ref: config.branch,
             path: PACKAGE_JSON
           }, options), (err, data) => {
             if (err) {
@@ -159,7 +159,7 @@ export default class DependentsUpdater {
   updateDependency(dep, gitUrl) {
     let config = {};
     config.targetPackageName = dep;
-    config.targetBranch = this.config.targetBranch || 'master';
+    config.branch = this.config.branch || 'master';
     console.log(`Trying to update dependent package ${dep} at ${gitUrl}`);
     let [owner, repo] = parseSlug(gitUrl);
     config.gitRepo = repo;
