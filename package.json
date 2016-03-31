@@ -77,12 +77,12 @@
   },
   "semantic-dependents-updates": {
     "branchNameBase": "semadep-updater",
+    "targetBranch": "semantic-dependents-updates-github",
     "author": {
       "email": "semadep@egis-software.com"
     },
     "dependents": {
-      "@egis/build-tools": "git@github.com:artemv/egis-build-tools.git",
-      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git"
+      "@egis/build-tools": "git@github.com:artemv/egis-build-tools.git"
     }
   }
 }
