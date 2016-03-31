@@ -47,7 +47,7 @@ export default class DependentsUpdater {
       sha: config.oldPackageSha
     });
     let msgWithFile = Object.assign({
-      content: 'bXkgdXBkYXRlZCBmaWxlIGNvbnRlbnRz'
+      content: new Buffer(rawPkg).toString('base64')
     }, msg);
     return new Promise((resolve) => {
       this.githubApi.repos.updateFile(msgWithFile, (err, data) => {
