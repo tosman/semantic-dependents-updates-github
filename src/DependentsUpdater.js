@@ -75,23 +75,36 @@ export default class DependentsUpdater {
     });
   }
 
-  createBranch(config) {
-    let random = `${Date.now()}`;
-    config.newBranch = `${config.branchNameBase}-${this.packageVersion}-${random}`;
-    let currentHeadSha = 'a961ce930b0570bdf3c7e9dbeaa3abe198ab9150';
-    let msg = Object.assign(this.gitRepoOptions(config), {
-      ref: `refs/heads/${config.newBranch}`,
-      sha: currentHeadSha
-    });
+  getCurrentHead(config) {
+    let msg = Object.assign(this.gitRepoOptions(config), {branch: config.targetBranch});
     return new Promise((resolve) => {
-      this.githubApi.gitdata.createReference(msg, (err, data) => {
+      this.githubApi.repos.getBranch(msg, (err, data) => {
         if (err) {
-          throw new Error(`Couldn't create a new branch for ${config.targetPackageName} from sha ${currentHeadSha}: ${err}`);
+          throw new Error(`Couldn't get current head of ${config.targetPackageName}: ${err}`);
         }
-        resolve();
+        resolve(data.commit.sha);
       });
     });
+  }
 
+  createBranch(config) {
+    let random = `${Date.now()}`;
+    config.newBranch = `${this.config.branchNameBase}-${this.packageVersion}-${random}`;
+    return new Promise((resolve) => {
+      this.getCurrentHead(config).then((sha) => {
+        let msg = Object.assign(this.gitRepoOptions(config), {
+          ref: `refs/heads/${config.newBranch}`,
+          sha: sha
+        });
+
+        this.githubApi.gitdata.createReference(msg, (err, data) => {
+          if (err) {
+            throw new Error(`Couldn't create a new branch for ${config.targetPackageName} from sha ${sha}: ${err}`);
+          }
+          resolve();
+        });
+      });
+    });
   }
 
   processTargetPackageJson(rawPkg, config) {
@@ -143,12 +156,10 @@ export default class DependentsUpdater {
     });
   }
 
-  updateDependency(dep, info) {
-    let gitUrl = info.repo;
+  updateDependency(dep, gitUrl) {
     let config = {};
     config.targetPackageName = dep;
-    config.branchNameBase = info.branchNameBase;
-    config.targetBranch = info.targetBranch || 'master';
+    config.targetBranch = this.config.targetBranch || 'master';
     console.log(`Trying to update dependent package ${dep} at ${gitUrl}`);
     let [owner, repo] = parseSlug(gitUrl);
     config.gitRepo = repo;

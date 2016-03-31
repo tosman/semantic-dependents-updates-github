@@ -76,14 +76,13 @@
     "npm": ">=2"
   },
   "semantic-dependents-updates": {
+    "branchNameBase": "semadep-updater",
     "author": {
       "email": "semadep@egis-software.com"
     },
     "dependents": {
-      "@egis/build-tools": {
-        "repo": "git@github.com:artemv/egis-build-tools.git",
-        "branchNameBase": "semadep-updater"
-      }
+      "@egis/build-tools": "git@github.com:artemv/egis-build-tools.git",
+      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git"
     }
   }
 }
