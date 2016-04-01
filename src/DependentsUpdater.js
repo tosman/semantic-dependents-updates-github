@@ -50,6 +50,7 @@ export default class DependentsUpdater {
         if (err) {
           throw new Error(`Couldn't commit a change  ${JSON.stringify(msg)} for ${config.targetPackageName}: ${err}`);
         }
+        config.updateCommitSha = data.commit.sha;
         resolve();
       });
     });
@@ -59,7 +60,7 @@ export default class DependentsUpdater {
     let msg = Object.assign(this.gitRepoOptions(config), {
       title: `Update ${this.packageName} to version ${this.packageVersion}`,
       base: config.branch,
-      head: config.newBranch
+      head: config.updateCommitSha
     });
     return new Promise((resolve) => {
       this.githubApi.pullRequests.create(msg, (err, data) => {
