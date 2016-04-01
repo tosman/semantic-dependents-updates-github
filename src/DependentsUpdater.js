@@ -110,7 +110,7 @@ export default class DependentsUpdater {
       return (pkg[k] || {})[this.packageName];
     });
     if (!key) {
-      console.log(`This package doesn't have ${this.packageName} as dependency`);
+      console.log(`Package ${config.targetPackageName} doesn't have ${this.packageName} as dependency`);
       return;
     }
     let currentVersion = pkg[key][this.packageName];
@@ -126,7 +126,7 @@ export default class DependentsUpdater {
         this.createPullRequest(config).then(() => console.log(`Created a PR for ${config.targetPackageName}`));
       });
     } else {
-      console.log(`This package already have ${this.packageName} at version ${this.packageVersion}`);
+      console.log(`Package ${config.targetPackageName} already have ${this.packageName} at version ${this.packageVersion}`);
       return;
     }
   }
