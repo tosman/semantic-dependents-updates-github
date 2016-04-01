@@ -7,6 +7,7 @@ const GitHubApi = github.default;
 const parseSlug = parseGithubUrl.default;
 
 const PACKAGE_JSON = 'package.json';
+const GH_TOKEN_KEY = 'GH_TOKEN';
 
 export default class DependentsUpdater {
   readConfig() {
@@ -15,14 +16,9 @@ export default class DependentsUpdater {
     this.packageVersion = pkg.version;
     this.config = pkg['semantic-dependents-updates'];
     this.deps = this.config.dependents;
-    this.ghToken = env.GH_TOKEN || env.GITHUB_TOKEN;
+    this.ghToken = env[GH_TOKEN_KEY] || env.GITHUB_TOKEN;
     this.githubApi = new GitHubApi({
       version: '3.0.0'
-    });
-
-    this.githubApi.authenticate({
-      token: this.ghToken,
-      type: 'oauth'
     });
   }
 
@@ -173,8 +169,19 @@ export default class DependentsUpdater {
     });
   }
 
+  authenticate() {
+    if (!this.ghToken) {
+      throw `You need to set the ${GH_TOKEN_KEY} env variable`;
+    }
+    this.githubApi.authenticate({
+      token: this.ghToken,
+      type: 'oauth'
+    });
+  }
+
   run() {
     this.readConfig();
+    this.authenticate();
     this.update();
   }
 }
