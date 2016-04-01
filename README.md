@@ -16,7 +16,8 @@ This is similar to the way [Greenkeeper](https://greenkeeper.io) works, but it's
 * it's just a Node.js module, not an external service
 * it works fine with private NPM packages (Greenkeeper currently doesn't support them, that's why I needed to create it)
 * it's focused on single dependency package with a list of dependents, similarly to [dont-break](https://www.npmjs.com/package/dont-break)'s approach
-This plays perfectly with [semantic-release](https://github.com/semantic-release/semantic-release), see below for usage instructions.
+
+This module plays perfectly with [semantic-release](https://github.com/semantic-release/semantic-release), see below for usage instructions.
 
 ## Limitations
 In case B dependends on A this module creates a Git branch inside B's repository, so this only works if your Github
@@ -74,6 +75,7 @@ The module config section in package.json can have following options, all of whi
       "@egis/esign": "git@github.com:egis/eSign.git",
       "@egis/portal-app": "git@github.com:egis/Portal.git"
     },
+    "branchNameBase": "autoupdate-build-tools",
     "branch": "my-branch",
     "author": {
       name: "semantic-dependents-updates-github bot",
@@ -85,6 +87,7 @@ The module config section in package.json can have following options, all of whi
 * "dependents" list NPM package names and Github URLs of dependent packages
 * "branch" is the target branch of dependent packages where pull request will be submitted to ("master" by default)
 * "author" can be used to specify "author" info for the commit created by module, by default it's { name: "semantic-dependents-updates-github bot", email: "semadep@nowhere.io" }
+* "branchNameBase" is a prefix of branch being created for pull request - full name in this case will be like this: "autoupdate-build-tools-1.0.2-1459471368624". Default is "autoupdate".
 
 ## License
 

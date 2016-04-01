@@ -86,7 +86,7 @@ export default class DependentsUpdater {
 
   createBranch(config) {
     let random = `${Date.now()}`;
-    config.newBranch = `${this.config.branchNameBase || 'semadep-updater'}-${this.packageVersion}-${random}`;
+    config.newBranch = `${this.config.branchNameBase || 'autoupdate'}-${this.packageVersion}-${random}`;
     return new Promise((resolve) => {
       this.getCurrentHead(config).then((sha) => {
         let msg = Object.assign(this.gitRepoOptions(config), {
