@@ -36,10 +36,11 @@
   },
   "homepage": "https://github.com/artemv/semantic-dependents-updates-github",
   "dependencies": {
-    "babel-polyfill": "^6.3.14"
+    "@bahmutov/parse-github-repo-url": "^0.1.1",
+    "babel-polyfill": "^6.3.14",
+    "github": "^0.2.4"
   },
   "devDependencies": {
-    "@bahmutov/parse-github-repo-url": "^0.1.1",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.0",
@@ -47,7 +48,6 @@
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
     "del": "^2.2.0",
-    "github": "^0.2.4",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
