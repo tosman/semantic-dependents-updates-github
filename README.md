@@ -3,8 +3,8 @@
 Creates Github Pull Requests to update current package' version in dependent projects.
 
 [![Travis build status](http://img.shields.io/travis/artemv/semantic-dependents-updates-github.svg?style=flat)](https://travis-ci.org/artemv/semantic-dependents-updates-github)
-[![Dependency Status](https://david-dm.org/artemv/semantic-dependents-updates-github.svg)](https://david-dm.org/artemv/semantic-dependents-updates-github)
-[![devDependency Status](https://david-dm.org/artemv/semantic-dependents-updates-github/dev-status.svg)](https://david-dm.org/artemv/semantic-dependents-updates-github#info=devDependencies)
+[![Dependency Status](https://david-dm.org/egis/semantic-release-github.svg)](https://david-dm.org/egis/semantic-release-github)
+[![devDependency Status](https://david-dm.org/egis/semantic-release-github/dev-status.svg)](https://david-dm.org/egis/semantic-release-github#info=devDependencies)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 ### Installation
@@ -24,9 +24,9 @@ print it if you choose 'Other' CI instead of Travis.
   ...
   "semantic-dependents-updates": {
     "dependents": {
-      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
-      "@egis/esign": "git@github.com:artemv/eSign.git",
-      "@egis/portal-app": "git@github.com:artemv/Portal.git"
+      "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
+      "@egis/esign": "git@github.com:egis/eSign.git",
+      "@egis/portal-app": "git@github.com:egis/Portal.git"
     }
   },
   ...
