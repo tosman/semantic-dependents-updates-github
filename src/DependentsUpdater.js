@@ -7,6 +7,7 @@ const GitHubApi = github.default;
 const parseSlug = parseGithubUrl.default;
 
 const PACKAGE_JSON = 'package.json';
+const GH_TOKEN_KEY = 'GH_TOKEN';
 
 export default class DependentsUpdater {
   readConfig() {
@@ -15,14 +16,9 @@ export default class DependentsUpdater {
     this.packageVersion = pkg.version;
     this.config = pkg['semantic-dependents-updates'];
     this.deps = this.config.dependents;
-    this.ghToken = env.GH_TOKEN || env.GITHUB_TOKEN;
+    this.ghToken = env[GH_TOKEN_KEY] || env.GITHUB_TOKEN;
     this.githubApi = new GitHubApi({
       version: '3.0.0'
-    });
-
-    this.githubApi.authenticate({
-      token: this.ghToken,
-      type: 'oauth'
     });
   }
 
@@ -54,6 +50,7 @@ export default class DependentsUpdater {
         if (err) {
           throw new Error(`Couldn't commit a change  ${JSON.stringify(msg)} for ${config.targetPackageName}: ${err}`);
         }
+        config.updateCommitSha = data.commit.sha;
         resolve();
       });
     });
@@ -63,7 +60,7 @@ export default class DependentsUpdater {
     let msg = Object.assign(this.gitRepoOptions(config), {
       title: `Update ${this.packageName} to version ${this.packageVersion}`,
       base: config.branch,
-      head: config.newBranch
+      head: config.updateCommitSha
     });
     return new Promise((resolve) => {
       this.githubApi.pullRequests.create(msg, (err, data) => {
@@ -89,7 +86,7 @@ export default class DependentsUpdater {
 
   createBranch(config) {
     let random = `${Date.now()}`;
-    config.newBranch = `${this.config.branchNameBase || 'semadep-updater'}-${this.packageVersion}-${random}`;
+    config.newBranch = `${this.config.branchNameBase || 'autoupdate'}-${this.packageVersion}-${random}`;
     return new Promise((resolve) => {
       this.getCurrentHead(config).then((sha) => {
         let msg = Object.assign(this.gitRepoOptions(config), {
@@ -113,7 +110,7 @@ export default class DependentsUpdater {
       return (pkg[k] || {})[this.packageName];
     });
     if (!key) {
-      console.log(`This package doesn't have ${this.packageName} as dependency`);
+      console.log(`Package ${config.targetPackageName} doesn't have ${this.packageName} as dependency`);
       return;
     }
     let currentVersion = pkg[key][this.packageName];
@@ -129,7 +126,7 @@ export default class DependentsUpdater {
         this.createPullRequest(config).then(() => console.log(`Created a PR for ${config.targetPackageName}`));
       });
     } else {
-      console.log(`This package already have ${this.packageName} at version ${this.packageVersion}`);
+      console.log(`Package ${config.targetPackageName} already have ${this.packageName} at version ${this.packageVersion}`);
       return;
     }
   }
@@ -173,8 +170,19 @@ export default class DependentsUpdater {
     });
   }
 
+  authenticate() {
+    if (!this.ghToken) {
+      throw `You need to set the ${GH_TOKEN_KEY} env variable`;
+    }
+    this.githubApi.authenticate({
+      token: this.ghToken,
+      type: 'oauth'
+    });
+  }
+
   run() {
     this.readConfig();
+    this.authenticate();
     this.update();
   }
 }

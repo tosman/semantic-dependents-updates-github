@@ -3,17 +3,35 @@
 Creates Github Pull Requests to update current package' version in dependent projects.
 
 [![Travis build status](http://img.shields.io/travis/artemv/semantic-dependents-updates-github.svg?style=flat)](https://travis-ci.org/artemv/semantic-dependents-updates-github)
-[![Dependency Status](https://david-dm.org/artemv/semantic-dependents-updates-github.svg)](https://david-dm.org/artemv/semantic-dependents-updates-github)
-[![devDependency Status](https://david-dm.org/artemv/semantic-dependents-updates-github/dev-status.svg)](https://david-dm.org/artemv/semantic-dependents-updates-github#info=devDependencies)
+[![Dependency Status](https://david-dm.org/egis/semantic-release-github.svg)](https://david-dm.org/egis/semantic-release-github)
+[![devDependency Status](https://david-dm.org/egis/semantic-release-github/dev-status.svg)](https://david-dm.org/egis/semantic-release-github#info=devDependencies)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-### Installation
+## Overview
+This package can be useful for a family of inter-dependent NPM packages. The basic idea is this: when A package'
+version is updated let's send a pull request to package B, changing A's dependency in its package.json to new version
+and initiating CI test of B with new version of A.
+
+This is similar to the way [Greenkeeper](https://greenkeeper.io) works, but it's a bit different:
+* it's just a Node.js module, not an external service
+* it works fine with private NPM packages (Greenkeeper currently doesn't support them, that's why I needed to create it)
+* it's focused on single dependency package with a list of dependents, similarly to [dont-break](https://www.npmjs.com/package/dont-break)'s approach
+
+This module plays perfectly with [semantic-release](https://github.com/semantic-release/semantic-release), see below for usage instructions.
+
+## Limitations
+In case B dependends on A this module creates a Git branch inside B's repository, so this only works if your Github
+user have write access to B's repository. So basically this is a solution only for a case when you (or your
+organisation) own the whole family of dependencies, which was exactly the case which this module was made to solve -
+it was made for a company's own suite of private NPM modules.
+
+## Installation
 Install the package:
 ```
 npm install --save-dev @egis/semantic-dependents-updates-github
 ```
 
-### Usage
+## Usage
 
 * Create a GitHub token to be used by semantic-dependents-updates-github and put it to GH_TOKEN env variable.
 You can also take (any of) GH_TOKEN created by https://github.com/semantic-release/semantic-release setup: it will
@@ -24,9 +42,9 @@ print it if you choose 'Other' CI instead of Travis.
   ...
   "semantic-dependents-updates": {
     "dependents": {
-      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
-      "@egis/esign": "git@github.com:artemv/eSign.git",
-      "@egis/portal-app": "git@github.com:artemv/Portal.git"
+      "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
+      "@egis/esign": "git@github.com:egis/eSign.git",
+      "@egis/portal-app": "git@github.com:egis/Portal.git"
     }
   },
   ...
@@ -45,3 +63,32 @@ PRs. Example for integration with semantic-release:
   ...
 
 ```
+
+## Configuration
+
+The module config section in package.json can have following options, all of which are optional except "dependents". Example:
+```
+  ...
+  "semantic-dependents-updates": {
+    "dependents": {
+      "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
+      "@egis/esign": "git@github.com:egis/eSign.git",
+      "@egis/portal-app": "git@github.com:egis/Portal.git"
+    },
+    "branchNameBase": "autoupdate-build-tools",
+    "branch": "my-branch",
+    "author": {
+      name: "semantic-dependents-updates-github bot",
+      email: "semadep@nowhere.io"
+    }
+  },
+  ...
+```
+* "dependents" list NPM package names and Github URLs of dependent packages
+* "branch" is the target branch of dependent packages where pull request will be submitted to ("master" by default)
+* "author" can be used to specify "author" info for the commit created by module, by default it's { name: "semantic-dependents-updates-github bot", email: "semadep@nowhere.io" }
+* "branchNameBase" is a prefix of branch being created for pull request - full name in this case will be like this: "autoupdate-build-tools-1.0.2-1459471368624". Default is "autoupdate".
+
+## License
+
+MIT License 2016 © Artem Vasiliev
