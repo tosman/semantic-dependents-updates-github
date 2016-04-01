@@ -1,0 +1,7 @@
+tmp/
+.idea/
+coverage/
+node_modules/
+dist/
+examples/
+npm-debug.log
