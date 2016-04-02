@@ -2,6 +2,8 @@
 
 Creates Github Pull Requests to update current package' version in dependent projects.
 
+[![NPM info][nodei.co]][npm-url]
+
 [![Travis build status](http://img.shields.io/travis/artemv/semantic-dependents-updates-github.svg?style=flat)](https://travis-ci.org/artemv/semantic-dependents-updates-github)
 [![Dependency Status](https://david-dm.org/egis/semantic-release-github.svg)](https://david-dm.org/egis/semantic-release-github)
 [![devDependency Status](https://david-dm.org/egis/semantic-release-github/dev-status.svg)](https://david-dm.org/egis/semantic-release-github#info=devDependencies)
@@ -95,3 +97,7 @@ The module config section in package.json can have following options, all of whi
 ## License
 
 MIT License 2016 © Artem Vasiliev
+
+
+[nodei.co]: https://nodei.co/npm/@egis/semantic-dependents-updates-github.png
+[npm-url]: https://npmjs.org/package/@egis/semantic-dependents-updates-github
