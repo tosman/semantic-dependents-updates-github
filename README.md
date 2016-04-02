@@ -92,7 +92,7 @@ The module config section in package.json can have following options, all of whi
 * "dependents" list NPM package names and Github URLs of dependent packages
 * "branch" is the target branch of dependent packages where pull request will be submitted to ("master" by default)
 * "author" can be used to specify "author" info for the commit created by module, by default it's { name: "semantic-dependents-updates-github bot", email: "semadep@nowhere.io" }
-* "branchNameBase" is a prefix of branch being created for pull request - full name in this case will be like this: "autoupdate-build-tools-1.0.2-1459471368624". Default is "autoupdate".
+* "branchNameBase" is a prefix of branch being created for pull request. Full branch name in this case will be like this: "autoupdate-build-tools-1.0.2-1459471368624". Default is "autoupdate".
 
 ## License
 
