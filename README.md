@@ -40,6 +40,8 @@ print it if you choose 'Other' CI instead of Travis.
 * Define the dependent projects to be updated in package.json, e.g.:
 ```
   ...
+  "name": "build-tools",
+  "version": "1.2.3",
   "semantic-dependents-updates": {
     "dependents": {
       "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
@@ -49,8 +51,9 @@ print it if you choose 'Other' CI instead of Travis.
   },
   ...
 ```
-Here we tell semantic-dependents-updates-github to create PRs to change version of the current package to the one
-defined in package.json in given GitHub repos.
+Here we tell semantic-dependents-updates-github to create pull requests to change build-tools' version to "1.2.3" in
+GitHub repos of "@egis/egis-ui", "@egis/esign" and "@egis/portal-app" packages. In case of semantic-release the version
+will be the one that was just published.
 
 * Use the 'semantic-dependents-updates-github' binary script in package.json' scripts section - this will create the
 PRs. Example for integration with semantic-release:
