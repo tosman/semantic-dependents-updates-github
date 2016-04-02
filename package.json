@@ -27,7 +27,9 @@
     "github",
     "dependencies",
     "versions",
-    "pull-requests"
+    "pull-requests",
+    "semantic-release",
+    "greenkeeper"
   ],
   "author": "Artem Vasiliev <artem.job@gmail.com>",
   "license": "MIT",
