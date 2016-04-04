@@ -18,6 +18,9 @@
     "coverage": "gulp coverage",
     "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
   },
+  "release": {
+    "verifyConditions": "condition-circle"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/egis/semantic-dependents-updates-github.git"
@@ -49,6 +52,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
+    "condition-circle": "^1.2.0",
     "del": "^2.2.0",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
