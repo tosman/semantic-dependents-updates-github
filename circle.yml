@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 0.12.0
+
+test:
+  pre:
+    - npm run build
+  post:
+    - test -f .local-success && (npm run semantic-release || true)
