@@ -2,6 +2,10 @@ machine:
   node:
     version: 0.12.0
 
+dependencies:
+  pre:
+    - test $CIRCLE_BRANCH != master && rm .npmrc
+
 test:
   pre:
     - npm run build
