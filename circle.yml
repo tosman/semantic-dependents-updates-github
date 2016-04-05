@@ -11,3 +11,4 @@ test:
     - npm run build
   post:
     - test -f .local-success && (npm run semantic-release || true)
+
