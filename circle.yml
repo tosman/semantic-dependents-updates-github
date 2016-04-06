@@ -14,4 +14,4 @@ deployment:
   semantic-release:
     branch: master
     commands:
-      npm run semantic-release
+      - npm run semantic-release
