@@ -2,6 +2,8 @@
 
 Creates Github Pull Requests to update current package' version in dependent projects.
 
+[![NPM info][nodei.co]][npm-url]
+
 [![Travis build status](http://img.shields.io/travis/artemv/semantic-dependents-updates-github.svg?style=flat)](https://travis-ci.org/artemv/semantic-dependents-updates-github)
 [![Dependency Status](https://david-dm.org/egis/semantic-release-github.svg)](https://david-dm.org/egis/semantic-release-github)
 [![devDependency Status](https://david-dm.org/egis/semantic-release-github/dev-status.svg)](https://david-dm.org/egis/semantic-release-github#info=devDependencies)
@@ -40,6 +42,8 @@ print it if you choose 'Other' CI instead of Travis.
 * Define the dependent projects to be updated in package.json, e.g.:
 ```
   ...
+  "name": "build-tools",
+  "version": "1.2.3",
   "semantic-dependents-updates": {
     "dependents": {
       "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
@@ -49,8 +53,9 @@ print it if you choose 'Other' CI instead of Travis.
   },
   ...
 ```
-Here we tell semantic-dependents-updates-github to create PRs to change version of the current package to the one
-defined in package.json in given GitHub repos.
+Here we tell semantic-dependents-updates-github to create pull requests to change build-tools' version to "1.2.3" in
+GitHub repos of "@egis/egis-ui", "@egis/esign" and "@egis/portal-app" packages. In case of semantic-release the version
+will be the one that was just published.
 
 * Use the 'semantic-dependents-updates-github' binary script in package.json' scripts section - this will create the
 PRs. Example for integration with semantic-release:
@@ -87,8 +92,13 @@ The module config section in package.json can have following options, all of whi
 * "dependents" list NPM package names and Github URLs of dependent packages
 * "branch" is the target branch of dependent packages where pull request will be submitted to ("master" by default)
 * "author" can be used to specify "author" info for the commit created by module, by default it's { name: "semantic-dependents-updates-github bot", email: "semadep@nowhere.io" }
-* "branchNameBase" is a prefix of branch being created for pull request - full name in this case will be like this: "autoupdate-build-tools-1.0.2-1459471368624". Default is "autoupdate".
+* "branchNameBase" is a prefix of branch being created for pull request. Full branch name in this case will be like this: "autoupdate-build-tools-1.0.2-1459471368624". Default is "autoupdate".
 
 ## License
 
 MIT License 2016 © Artem Vasiliev
+
+
+[nodei.co]: https://nodei.co/npm/@egis/semantic-dependents-updates-github.png
+[npm-url]: https://npmjs.org/package/@egis/semantic-dependents-updates-github
+
