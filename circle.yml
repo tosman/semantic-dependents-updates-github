@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   pre:
-    - test $CIRCLE_BRANCH != master && rm .npmrc
+    - test $CIRCLE_BRANCH != master && rm .npmrc || true
 
 test:
   pre:
