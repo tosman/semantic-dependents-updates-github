@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   pre:
-    - test $CIRCLE_BRANCH != master && rm .npmrc
+    - test $CIRCLE_BRANCH != master && rm .npmrc || true
 
 test:
   pre:
@@ -14,4 +14,5 @@ deployment:
   semantic-release:
     branch: master
     commands:
-      - npm run semantic-release
+      - npm run semantic-release || true
+
