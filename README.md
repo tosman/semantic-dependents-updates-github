@@ -30,7 +30,7 @@ it was made for a company's own suite of private NPM modules.
 ## Installation
 Install the package:
 ```
-npm install --save-dev @egis/semantic-dependents-updates-github
+npm install -g @egis/semantic-dependents-updates-github
 ```
 
 ## Usage
@@ -62,8 +62,7 @@ PRs. Example for integration with semantic-release:
 ```
   ...
   "scripts": {
-    "update-dependents": "semantic-dependents-updates-github",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post && npm run update-dependents",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post && semantic-dependents-updates-github",
   },
   ...
 
