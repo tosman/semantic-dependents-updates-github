@@ -23,6 +23,7 @@ this module will be counted as 'push' there, because its branch will be in the s
 
 This module plays perfectly with [semantic-release](https://github.com/semantic-release/semantic-release), see below for usage instructions.
 
+Here's an example output from this module at CircleCI:
 ![Example screenshot](http://content.screencast.com/users/artemv/folders/Jing/media/e5c2f093-44a6-489a-8a98-280609e87d40/00000623.png "Example screenshot")
 
 ## Limitations
