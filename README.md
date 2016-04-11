@@ -4,7 +4,7 @@ Creates Github Pull Requests to update current package' version in dependent pro
 
 [![NPM info][nodei.co]][npm-url]
 
-[![Travis build status](http://img.shields.io/travis/artemv/semantic-dependents-updates-github.svg?style=flat)](https://travis-ci.org/artemv/semantic-dependents-updates-github)
+[![Circle CI](https://circleci.com/gh/egis/semantic-dependents-updates-github.svg?style=shield)](https://circleci.com/gh/egis/semantic-dependents-updates-github)
 [![Dependency Status](https://david-dm.org/egis/semantic-dependents-updates-github.svg)](https://david-dm.org/egis/semantic-dependents-updates-github)
 [![devDependency Status](https://david-dm.org/egis/semantic-dependents-updates-github/dev-status.svg)](https://david-dm.org/egis/semantic-dependents-updates-github#info=devDependencies)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
