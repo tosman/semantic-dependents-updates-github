@@ -18,9 +18,6 @@ This is similar to the way [Greenkeeper](https://greenkeeper.io) works, but it's
 * it's just a Node.js module, not an external service
 * it works fine with private NPM packages (Greenkeeper currently doesn't support them, that's why I needed to create it)
 * it's focused on single dependency package with a list of dependents, similarly to [dont-break](https://www.npmjs.com/package/dont-break)'s approach
-* this module works even if you disable building pull requests at Travis and keep only building on 'push' - PR from
-this module will be counted as 'push' there, because its branch will be in the same repository. This can be useful if
-you don't want to allow pull requests from unknown forks to use your sensitive env vars defined at Travis.
 
 This module plays perfectly with [semantic-release](https://github.com/semantic-release/semantic-release), see below for usage instructions.
 
