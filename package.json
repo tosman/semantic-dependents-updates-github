@@ -19,7 +19,8 @@
     "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
   },
   "release": {
-    "verifyConditions": "condition-circle"
+    "verifyConditions": "condition-circle",
+    "analyzeCommits": "./node_modules/@semantic-release/commit-analyzer/dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,7 @@
   "dependencies": {
     "@bahmutov/parse-github-repo-url": "^0.1.1",
     "babel-polyfill": "^6.3.14",
-    "github": "^0.2.4"
+    "github": "^2.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
@@ -74,6 +75,7 @@
     "json-loader": "^0.5.3",
     "mocha": "^2.3.4",
     "semantic-release": "^4.3.5",
+    "@semantic-release/commit-analyzer": "github:artemv/commit-analyzer#414c9e8168518e00d5fd2bd0d653867404c994cb",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "^1.1.0"

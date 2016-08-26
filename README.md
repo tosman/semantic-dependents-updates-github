@@ -4,7 +4,7 @@ Creates Github Pull Requests to update current package' version in dependent pro
 
 [![NPM info][nodei.co]][npm-url]
 
-[![Travis build status](http://img.shields.io/travis/artemv/semantic-dependents-updates-github.svg?style=flat)](https://travis-ci.org/artemv/semantic-dependents-updates-github)
+[![Circle CI](https://circleci.com/gh/egis/semantic-dependents-updates-github.svg?style=shield)](https://circleci.com/gh/egis/semantic-dependents-updates-github)
 [![Dependency Status](https://david-dm.org/egis/semantic-dependents-updates-github.svg)](https://david-dm.org/egis/semantic-dependents-updates-github)
 [![devDependency Status](https://david-dm.org/egis/semantic-dependents-updates-github/dev-status.svg)](https://david-dm.org/egis/semantic-dependents-updates-github#info=devDependencies)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -21,8 +21,11 @@ This is similar to the way [Greenkeeper](https://greenkeeper.io) works, but it's
 
 This module plays perfectly with [semantic-release](https://github.com/semantic-release/semantic-release), see below for usage instructions.
 
+Here's an example output from this module at CircleCI:
+![Example screenshot](http://content.screencast.com/users/artemv/folders/Jing/media/e5c2f093-44a6-489a-8a98-280609e87d40/00000623.png "Example screenshot")
+
 ## Limitations
-In case B dependends on A this module creates a Git branch inside B's repository, so this only works if your Github
+In case B depends on A this module creates a Git branch inside B's repository, so this only works if your Github
 user have write access to B's repository. So basically this is a solution only for a case when you (or your
 organisation) own the whole family of dependencies, which was exactly the case which this module was made to solve -
 it was made for a company's own suite of private NPM modules.
@@ -30,7 +33,7 @@ it was made for a company's own suite of private NPM modules.
 ## Installation
 Install the package:
 ```
-npm install --save-dev @egis/semantic-dependents-updates-github
+npm install -g @egis/semantic-dependents-updates-github
 ```
 
 ## Usage
@@ -62,8 +65,7 @@ PRs. Example for integration with semantic-release:
 ```
   ...
   "scripts": {
-    "update-dependents": "semantic-dependents-updates-github",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post && npm run update-dependents",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post && semantic-dependents-updates-github",
   },
   ...
 
