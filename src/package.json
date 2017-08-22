@@ -1,0 +1,19 @@
+{
+  "name": "ui-core",
+  "version": "1.8.0",
+  "private": true,
+  "semantic-dependents-updates": {
+    "dependents": {
+      "Evolent-Health/TestRepo": "git+ssh://git@github.com:Evolent-Health/TestRepo.git"
+    },
+    "author": {
+      "name": "semantic-dependents-updates-github bot",
+      "email": "semadep@nowhere.io"
+    },
+    "useGitHubReleases": true
+  },
+  "dependencies": {
+  },
+  "scripts": {
+  }
+}

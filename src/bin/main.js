@@ -1,7 +1,7 @@
 #!/usr/bin/env node
+require('babel-register');
+require('babel-polyfill');
 
-import 'babel-polyfill';
+let DependentsUpdater = require('../DependentsUpdater');
 
-import DependentsUpdater from '../DependentsUpdater';
-
-new DependentsUpdater().run();
+new DependentsUpdater.default().run();
