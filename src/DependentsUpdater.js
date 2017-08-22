@@ -60,16 +60,15 @@ export default class DependentsUpdater {
       msg
     );
 
-    try{
+    try {
       let data = await this.githubApi.repos.updateFile(msgWithFile);
       config.updateCommitSha = data.data.commit.sha;
-
-    } catch(e){
+    } catch (e) {
       throw new Error(
-            `Couldn't commit a change  ${JSON.stringify(
-              msg
-            )} for ${config.targetPackageName}: ${e}`
-          );
+        `Couldn't commit a change  ${JSON.stringify(
+          msg
+        )} for ${config.targetPackageName}: ${e}`
+      );
     }
   }
 
@@ -80,12 +79,12 @@ export default class DependentsUpdater {
       head: config.newBranch
     });
 
-    console.log(msg);
-    try{ 
+    try {
       let data = await this.githubApi.pullRequests.create(msg);
-    } catch(e){
+      console.log(`Created a PR for ${config.targetPackageName}`);
+    } catch (e) {
       throw new Error(
-            `Couldn't create a PR for ${config.targetPackageName}: ${e}`
+        `Couldn't create a PR for ${config.targetPackageName}: ${e}`
       );
     }
   }
@@ -97,7 +96,7 @@ export default class DependentsUpdater {
 
     try {
       let data = await this.githubApi.repos.getBranch(msg);
-      return data.data.commit.sha
+      return data.data.commit.sha;
     } catch (e) {
       throw new Error(
         `Couldn't get current head of ${config.targetPackageName}: ${err}`
@@ -129,9 +128,10 @@ export default class DependentsUpdater {
   }
 
   async processTargetPackageJson(rawPkg, config) {
-
-    function createVersionUrl(useGitHubReleases, packageName, packageVersion){
-      return useGitHubReleases ? `${GH_RELEASE_PREFIX}/${packageName}.git#${packageVersion}`: packageVersion;
+    function createVersionUrl(useGitHubReleases, packageName, packageVersion) {
+      return useGitHubReleases
+        ? `${GH_RELEASE_PREFIX}/${packageName}.git#${packageVersion}`
+        : packageVersion;
     }
 
     let pkg = JSON.parse(rawPkg.data, "utf8");
@@ -157,25 +157,22 @@ export default class DependentsUpdater {
           this.packageVersion
       );
 
-      const packageVersionUrl = createVersionUrl(this.config.useGitHubReleases, this.packageName, this.packageVersion);
+      const packageVersionUrl = createVersionUrl(
+        this.config.useGitHubReleases,
+        this.packageName,
+        this.packageVersion
+      );
 
       rawPkg = rawPkg.data.replace(
         `"${this.packageName}": "${currentVersion}"`,
         `"${this.packageName}": "${packageVersionUrl}"`
       );
 
-
-
-     try{
-        await this.createBranch(config);
+      try {
         await this.updateFileInBranch(rawPkg, config);
-        await this.createPullRequest(config);
-
-        console.log(`Created a PR for ${config.targetPackageName}`)
-     } catch (e){
-       throw new Error(e);
-     }
-
+      } catch (e) {
+        throw new Error(e);
+      }
     } else {
       console.log(
         `Package ${config.targetPackageName} already have ${this
@@ -212,7 +209,20 @@ export default class DependentsUpdater {
     }
   }
 
-  updateDependency(dep, gitUrl) {
+  async updatePackageJson(config) {
+
+    let dataSha = await this.getTargetPackageJson({}, config);
+    config.oldPackageSha = dataSha.data.sha;
+
+    let packageJson = await this.getTargetPackageJson(
+          { headers: { Accept: "application/vnd.github.v3.raw" } },
+          config
+        );
+    
+    await this.processTargetPackageJson(packageJson, config);
+  }
+
+  async updateDependency(dep, gitUrl) {
     let config = {};
     config.targetPackageName = dep;
     config.branch = this.config.branch || "master";
@@ -221,21 +231,11 @@ export default class DependentsUpdater {
     config.gitRepo = repo;
     config.gitRepoOwner = owner;
 
+    await this.createBranch(config);
+    await this.updatePackageJson(config);
+    // this.updateYarnLock(config);
+    await this.createPullRequest(config);
 
-
-    this.getTargetPackageJson({}, config)
-      .then(data => {
-        config.oldPackageSha = data.data.sha;
-      })
-      .then(() => {
-        this.getTargetPackageJson(
-          { headers: { Accept: "application/vnd.github.v3.raw" } },
-          config
-        ).then(data => {
-          this.processTargetPackageJson(data, config);
-        });
-      });
-      
   }
 
   authenticate() {
